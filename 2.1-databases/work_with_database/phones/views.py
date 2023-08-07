@@ -1,17 +1,31 @@
+import csv
+
 from django.shortcuts import render, redirect
 
+from phones.models import Phone
+from django.http import HttpResponse
 
 def index(request):
-    return redirect('catalog')
+    return redirect("catalog")
 
 
 def show_catalog(request):
-    template = 'catalog.html'
-    context = {}
-    return render(request, template, context)
+    phones = Phone.objects.all()
+    context = request.GET.get('sort')
+    if context == 'name':
+        context = {'phones': phones.order_by('name')}
+        return render(request, "catalog.html", context)
+    elif context == 'min_price':
+        context = {'phones': phones.order_by('price')}
+        return render(request, "catalog.html", context)
+    elif context == 'max_price':
+        context = {'phones': phones.order_by('-price')}
+        return render(request, "catalog.html", context)
+    else:
+        context = {'phones': phones}
+        return render(request, "catalog.html", context)
 
 
 def show_product(request, slug):
-    template = 'product.html'
-    context = {}
-    return render(request, template, context)
+    context = {'phone': Phone.objects.filter(slug__iexact=slug).values()[0]}
+    return render(request, "product.html", context)
