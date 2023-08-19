@@ -3,7 +3,7 @@ import csv
 from django.shortcuts import render, redirect
 
 from phones.models import Phone
-from django.http import HttpResponse
+
 
 def index(request):
     return redirect("catalog")
