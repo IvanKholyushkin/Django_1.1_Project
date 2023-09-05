@@ -1,7 +1,9 @@
 from django.contrib.auth.models import User
+from django_filters import DateFromToRangeFilter
+from django_filters.rest_framework import FilterSet
 from rest_framework import serializers
 
-from advertisements.models import Advertisement
+from advertisements.models import Advertisement, AdvertisementStatusChoices
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -40,6 +42,7 @@ class AdvertisementSerializer(serializers.ModelSerializer):
     def validate(self, data):
         """Метод для валидации. Вызывается при создании и обновлении."""
 
-        # TODO: добавьте требуемую валидацию
-
+        advert = Advertisement.objects.filter(creator=self.context["request"].user).filter(status='OPEN').count()
+        if advert == 10 and self.context['request'].method == 'POST':
+            raise serializers.ValidationError('Вы превысили лимит (10 объявлений)')
         return data
