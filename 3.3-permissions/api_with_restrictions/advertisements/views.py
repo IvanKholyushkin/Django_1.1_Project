@@ -9,6 +9,7 @@ from advertisements.serializers import AdvertisementSerializer
 
 class AdvertisementViewSet(ModelViewSet):
     """ViewSet для объявлений."""
+
     queryset = Advertisement.objects.all()
     serializer_class = AdvertisementSerializer
     permission_classes = [IsAuthenticated, IsOwner]

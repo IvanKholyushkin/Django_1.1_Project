@@ -21,10 +21,10 @@ from rest_framework.routers import DefaultRouter
 from advertisements.views import AdvertisementViewSet
 
 router = DefaultRouter()
-router.register('advertisement', AdvertisementViewSet)
+router.register("advertisement", AdvertisementViewSet)
 
 
 urlpatterns = [
-    path('api/', include(router.urls)),
-    path('admin/', admin.site.urls),
+    path("api/", include(router.urls)),
+    path("admin/", admin.site.urls),
 ] + router.urls
