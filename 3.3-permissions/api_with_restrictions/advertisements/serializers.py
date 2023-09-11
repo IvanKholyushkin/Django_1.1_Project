@@ -57,6 +57,6 @@ class AdvertisementSerializer(serializers.ModelSerializer):
             .filter(status="OPEN")
             .count()
         )
-        if advert == 10 and self.context["request"].method == "POST":
+        if advert == 10 and self.context["request"].method == "POST" or self.initial_data.get("status") == "OPEN":
             raise serializers.ValidationError("Вы превысили лимит (10 объявлений)")
         return data

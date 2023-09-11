@@ -15,10 +15,6 @@ class AdvertisementViewSet(ModelViewSet):
     permission_classes = [IsAuthenticated, IsOwner]
     filterset_class = AdvertisementFilter
 
-    # def get_queryset(self):
-    #     user = self.request.user
-    #     return Advertisement.objects.filter(creator=user)
-
     def get_permissions(self):
         """Получение прав для действий."""
         if self.action in ["create"]:

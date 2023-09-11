@@ -7,7 +7,6 @@ class AdvertisementFilter(filters.FilterSet):
     """Фильтры для объявлений."""
 
     created_at = DateFromToRangeFilter()
-    status = AdvertisementStatusChoices
 
     class Meta:
         model = Advertisement
